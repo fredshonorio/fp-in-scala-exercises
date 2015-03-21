@@ -1,7 +1,5 @@
 package chapter2
 
-import chapter2.ex3.{curry, mul}
-
 /**
  *
  * Created by fredh on 21-03-2015.
@@ -12,7 +10,7 @@ object ex5 {
     a => g(f(a))
   }
 
-  val mul5 = curry(mul)(5)
+  val mul5 = (x: Int) => x * 5
   val add5 = (x: Int) => x + 5
 
   def main(args: Array[String]) {

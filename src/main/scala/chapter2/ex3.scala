@@ -1,7 +1,5 @@
 package chapter2
 
-import scala.annotation.tailrec
-
 /**
  *
  * Created by fredh on 21-03-2015.
@@ -39,6 +37,9 @@ object ex3 {
 
     val cc_mul = curry5(chain_mul)
     assert(cc_mul(2)(3)(4)(5)(6) == chain_mul(2, 3, 4, 5, 6))
+
+    // using .curried
+    assert((chain_mul _).curried(2)(3)(4)(5)(6) == chain_mul(2, 3, 4, 5, 6))
 
     print("done")
   }
