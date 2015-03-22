@@ -12,11 +12,13 @@ import scala.annotation.tailrec
  */
 object ex1 {
 
+  // O(2^n)
   def fib_canonical(n: Int) : Int =  {
     if (n == 0 || n == 1) n
     else fib_canonical(n - 1) + fib_canonical(n - 2)
   }
 
+  // O(n)
   def fib(n: Int) : Int =  {
 
     /**
