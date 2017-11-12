@@ -44,6 +44,10 @@ object opt {
     case ho :: to => ho.flatMap(h => sequence(to).map(h:: _))
   }
 
+  // in terms of traverse
+  def sequence_[A](xs: List[Option[A]]) : Option[List[A]] =
+    traverse(xs)(identity)
+
   def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = a match {
     case Nil => Some(Nil)
     case h :: t => map2(f(h), traverse(t)(f))(_ :: _)
@@ -92,6 +96,11 @@ object opt {
     val ll = List(1, 2, 3, 4, 5, 6)
     assert(traverse(ll)(pairs) == None)
     assert(traverse(ll)(Some(_)) == Some(List(1, 2, 3, 4, 5, 6)))
+
+    val lb = List(1, 2, 3, 4, 5, 6).map(pairs)
+    val la = List(1, 2, 3, 4, 5, 6).map(Some(_))
+    assert(sequence_(lb) == None)
+    assert(sequence_(la) == Some(List(1, 2, 3, 4, 5, 6)))
   }
 
   def main(args: Array[String]) {
