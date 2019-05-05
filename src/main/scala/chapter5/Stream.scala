@@ -21,21 +21,11 @@ sealed trait Stream[+A] {
     go(this, List()).reverse
   }
 
-  // compare with https://github.com/fpinscala/fpinscala/blob/master/answers/src/main/scala/fpinscala/laziness/Stream.scala
-  // check that it is stack safe
   def take(n: Int): Stream[A] = {
-
-    @tailrec
-    def go(n: Int, xs: Stream[A], acc: Stream[A]): Stream[A] = {
-      if (n == 0) acc
-      else
-        xs match {
-          case Empty => acc
-          case Cons(h, t) => go(n - 1, t(), Stream.cons(h(), acc))
-        }
+    this match {
+      case Cons(h, t) if n >= 1 => Stream.cons[A](h(), t().take(n - 1))
+      case _ => Empty
     }
-
-    go(n, this, Empty)
   }
 
   def drop(n: Int): Stream[A] = {
@@ -117,6 +107,7 @@ object Main {
   def ex2 = {
     val xs = Stream(1, 2, 3)
     assert(xs.take(1).toList() == List(1))
+    assert(xs.take(2).toList() == List(1, 2))
     assert(xs.drop(1).toList() == List(2, 3))
   }
 
