@@ -245,7 +245,7 @@ object List {
   }
 }
 
-object list {
+object lists {
 
   import chapter3.List._
 

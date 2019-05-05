@@ -25,7 +25,7 @@ case class Right[+E, +A](a: A) extends Either[E, A] {
   override def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] = b.map(f.apply(a, _))
 }
 
-object either {
+object eithers {
 
   def traverse[E, A, B](as: List[A])(f: A => Either[E, B]) : Either[E, List[B]] = as match {
     case Nil => Right(Nil)

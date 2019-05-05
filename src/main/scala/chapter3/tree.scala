@@ -41,7 +41,7 @@ object Tree {
   def mapByFold[A, B](t: Tree[A])(f: A => B): Tree[B] = fold(t)(x => Leaf(f(x)):Tree[B])(Branch(_, _))
 }
 
-object tree {
+object trees {
   import chapter3.Tree._
 
   val aTree =
